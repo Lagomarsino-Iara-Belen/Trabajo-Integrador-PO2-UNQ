@@ -1,6 +1,6 @@
-package ar.unq.edu.po2.tpIntegrador.buque;
+package ar.unq.edu.po2.tpIntegrador.Buque;
 
-import ar.unq.edu.po2.tpIntegrador.Viaje.Viaje;
+import ar.unq.edu.po2.tpIntegrador.Naviera.Viaje;
 
 public class FaseOutbound implements FaseDeBuque {
 

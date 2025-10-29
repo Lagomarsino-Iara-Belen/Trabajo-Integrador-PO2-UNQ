@@ -1,4 +1,4 @@
-package ar.unq.edu.po2.tpIntegrador.buque;
+package ar.unq.edu.po2.tpIntegrador.Buque;
 
 import java.util.ArrayList;
 import java.util.List;

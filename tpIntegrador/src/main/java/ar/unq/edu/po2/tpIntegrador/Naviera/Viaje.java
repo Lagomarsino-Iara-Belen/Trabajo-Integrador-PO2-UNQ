@@ -1,6 +1,6 @@
-package ar.unq.edu.po2.tpIntegrador.Viaje;
+package ar.unq.edu.po2.tpIntegrador.Naviera;
 
-import ar.unq.edu.po2.tpIntegrador.terminal.Terminal;
+import ar.unq.edu.po2.tpIntegrador.Terminal.Terminal;
 
 public class Viaje {
 

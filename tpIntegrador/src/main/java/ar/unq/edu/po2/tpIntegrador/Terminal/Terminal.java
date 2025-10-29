@@ -1,7 +1,7 @@
-package ar.unq.edu.po2.tpIntegrador.terminal;
+package ar.unq.edu.po2.tpIntegrador.Terminal;
 
-import ar.unq.edu.po2.tpIntegrador.buque.Buque;
-import ar.unq.edu.po2.tpIntegrador.buque.FaseDeBuque;
+import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
+import ar.unq.edu.po2.tpIntegrador.Buque.FaseDeBuque;
 
 public class Terminal {
 

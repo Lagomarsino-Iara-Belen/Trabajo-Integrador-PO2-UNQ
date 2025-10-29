@@ -42,6 +42,4 @@ class TramoTestCase {
 		assertEquals(terminalDes, tramo.getDestino());
 	}
 
-
-
 }

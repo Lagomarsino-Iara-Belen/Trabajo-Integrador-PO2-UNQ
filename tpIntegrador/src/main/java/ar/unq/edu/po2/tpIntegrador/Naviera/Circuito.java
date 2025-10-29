@@ -13,16 +13,16 @@ public class Circuito {
 	 * Me devuelve el primer puerto del circuito
 	 * @return Terminal
 	 */
-	public Terminal getPuertoInicio() {
+	//public Terminal getPuertoInicio() {
 		
-	}
+	//}
 	
 	/**
 	 * Me devuelve el ultimo puerto del circuito
 	 * @return Terminal
 	 */
-	public Terminal getPuertoFinal() {
+	//public Terminal getPuertoFinal() {
 		
-	}
+	//}
 
 }

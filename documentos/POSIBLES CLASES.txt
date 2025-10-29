@@ -1,0 +1,164 @@
+CLASES Y JUSTIFICACIONES CON CITAS
+1. TerminalPortuaria
+
+Texto base:
+
+“...nos enfocaremos en la gestión de una determinada terminal (por ejemplo, el Puerto de Buenos Aires) que, por supuesto, está inmersa en el contexto portuario global... A esta terminal la llamaremos ‘Terminal gestionada’, puesto que es la única que nos interesa gestionar.”
+(pág. 6)
+
+Clase: TerminalPortuaria
+Responsabilidad: gestionar la operación local, registro de órdenes, navieras, camiones, y facturación.
+Posible patrón: Singleton
+Porque el documento aclara que solo se gestiona una terminal, por lo que tiene sentido modelarla como una única instancia global.
+
+2. Naviera, Circuito, Tramo, Buque, Viaje
+
+Texto base:
+
+“Las Líneas Navieras... cuentan con un conjunto de buques destinados al transporte de mercancías. Cada naviera se enfoca en cubrir... un conjunto de circuitos marítimos, cada uno de los cuales consiste en una secuencia unidireccional y cerrada de terminales portuarias...”
+(pág. 2)
+
+“Se llama ‘viaje’ al recorrido de un circuito por parte de un buque determinado con una fecha de inicio... define un cronograma con fechas concretas de arribos...”
+(pág. 3)
+
+Clases:
+
+Naviera (empresa marítima)
+
+Circuito (lista de tramos entre terminales)
+
+Tramo (relación origen-destino, con precio y tiempo)
+
+Buque (barco que recorre circuitos)
+
+Viaje (instancia de un buque recorriendo un circuito en fechas concretas)
+
+Posibles patrones:
+
+Strategy → para definir distintos criterios de “mejor circuito”:
+
+“El concepto de ‘mejor’ debe poder ser seteado y cambiado dinámicamente... deben ofrecerse los siguientes tres, pero el modelo debe quedar abierto para poder agregar otros nuevos...” (pág. 14)
+Esto indica explícitamente la necesidad de comportamiento intercambiable dinámicamente, típico de Strategy.
+
+3. Container (y subtipos: Dry, Tanque, Reefer)
+
+Texto base:
+
+“Los containers pueden ser de distintos tipos: Dry, Tanque, Reefer...
+De cada reefer se conoce su consumo (kw/hora).”
+(pág. 4)
+
+Clases:
+
+Container (abstracta)
+
+Dry, Tanque, Reefer (subclases)
+
+Patrón posible: ...
+
+4. EmpresaTransportista, Camion, Chofer
+
+Texto base:
+
+“Las cargas son llevadas al puerto y retiradas del mismo mediante camiones pertenecientes a empresas transportistas... Estas empresas, sus camiones y los choferes... están registrados en la terminal.”
+(pág. 5)
+
+Clases:
+
+EmpresaTransportista
+
+Camion
+
+Chofer
+
+Rol: entidades de soporte logístico, usadas por las órdenes.
+
+5. Orden, OrdenExportacion, OrdenImportacion
+
+Texto base:
+
+“Las dos operaciones básicas... son exportación e importación. Estos son los servicios centrales que una terminal brinda a sus clientes.” (pág. 6)
+
+“El shipper que desea exportar una carga desde la terminal gestionada... debe requerir en la terminal una operación de exportación... Si desea enviar más de una carga, debe contratar dos servicios por separado.” (pág. 7)
+
+“De forma similar pero inversa... se realiza el procedimiento de retiro de carga... en el contexto de una importación...” (pág. 9)
+
+Clases:
+
+Orden (abstracta)
+
+OrdenExportacion, OrdenImportacion (subclases)
+
+Patrón posible: Template Method
+El flujo general de una orden (registro, verificación, facturación) es común, pero los pasos varían según si es exportación o importación.
+
+6. Servicio (y subclases)
+
+Texto base:
+
+“Un container puede recibir varios servicios... Algunos ejemplos son: Lavado, Electricidad, Pesado, Almacenamiento excedente...” (pág. 10)
+
+“Estos son sólo algunos ejemplos... pero podrían incorporarse otros nuevos.” (pág. 10)
+
+Clases:
+
+Servicio (abstracta)
+
+ServicioLavado, ServicioElectricidad, ServicioPesado, ServicioAlmacenamiento
+
+Patrones posibles:
+
+Template Method o Strategy → para el cálculo de costo (calcularCosto() varía según tipo).
+
+Composite (opcional) → si se agrupan servicios en “paquetes” facturables.
+
+7. FaseBuque y subclases (State Pattern)
+
+Texto base:
+
+“Se contempla una serie de fases por las que pasa todo buque... Outbound, Inbound, Arrived, Working, Departing...” (pág. 11)
+
+“En esta fase, el buque da aviso... la terminal enviará un mail... Cuando su distancia sea mayor a un kilómetro... la terminal enviará un mail...” (pág. 11–12)
+
+Clases:
+
+FaseBuque (abstracta)
+
+Outbound, Inbound, Arrived, Working, Departing
+
+Patrón: State
+Cada fase define un comportamiento distinto (enviar mails, cambiar estado, iniciar facturación).
+
+8. Observer para notificaciones
+
+Texto base:
+
+“Al entrar en la fase Inbound... la terminal enviará un mail a todos los consignees que estén esperando ese buque...”
+“Cuando el buque pasa a estado Outbound... la terminal enviará un mail a todos los shippers...” (pág. 12)
+
+Patrón: Observer
+La terminal actúa como sujeto que notifica a observadores (clientes) sobre eventos del buque.
+
+9. Factura
+
+Texto base:
+
+“Cuando el buque pasa a estado ‘outbound’... se envía la factura vía mail con el desglose de servicios aplicados, fecha y monto...” (pág. 13)
+
+Clase: Factura
+Contiene los servicios aplicados, montos y datos de la orden.
+
+10. Política de selección de rutas (Strategy)
+
+Texto base:
+
+“Devolver el mejor circuito... El concepto de ‘mejor’ debe poder ser seteado y cambiado dinámicamente... deben ofrecerse los siguientes tres...” (pág. 14)
+
+Clases:
+
+PoliticaSeleccionRuta (interfaz)
+
+PorMenorTiempo, PorMenorPrecio, PorMenosEscalas (implementaciones)
+
+Patrón: Strategy
+Justificación explícita del texto (“seteado y cambiado dinámicamente”).

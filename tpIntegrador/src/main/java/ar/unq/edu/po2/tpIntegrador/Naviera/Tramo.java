@@ -23,11 +23,11 @@ public class Tramo {
 		return precio;
 	}
 	
-	public Terminal getOrigen() {
+	public Terminal getPuertoOrigen() {
 		return terminalInicio;
 	}
 	
-	public Terminal getDestino() {
+	public Terminal getPuertoDestino() {
 		return terminalFin;
 	}
 

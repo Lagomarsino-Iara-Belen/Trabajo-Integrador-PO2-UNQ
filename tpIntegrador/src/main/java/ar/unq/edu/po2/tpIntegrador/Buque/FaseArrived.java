@@ -11,7 +11,7 @@ public class FaseArrived implements FaseDeBuque {
 	}
 
 	private void notificarTerminal(Viaje viaje, Buque buque) {
-		viaje.paradaActual().cambiarElEstadoDe((new FaseWorking()), buque);
+		viaje.getParadaActual().cambiarElEstadoDe((new FaseWorking()), buque);
 	}
 
 }

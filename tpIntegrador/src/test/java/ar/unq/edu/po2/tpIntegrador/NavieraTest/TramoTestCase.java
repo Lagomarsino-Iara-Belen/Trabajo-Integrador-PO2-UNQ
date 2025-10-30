@@ -34,12 +34,12 @@ class TramoTestCase {
 	
 	@Test
 	void testGetOrigen() {
-		assertEquals(terminalOrig, tramo.getOrigen());
+		assertEquals(terminalOrig, tramo.getPuertoOrigen());
 	}
 
 	@Test
 	void testGetDestino() {
-		assertEquals(terminalDes, tramo.getDestino());
+		assertEquals(terminalDes, tramo.getPuertoDestino());
 	}
 
 }

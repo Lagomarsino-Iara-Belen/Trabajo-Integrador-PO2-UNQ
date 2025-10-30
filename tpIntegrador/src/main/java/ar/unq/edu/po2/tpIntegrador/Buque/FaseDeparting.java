@@ -12,7 +12,7 @@ public class FaseDeparting implements FaseDeBuque {
 	}
 
 	private void notificarTerminal(Viaje viaje) {
-		viaje.paradaActual().enviarMailAShipper();
-		viaje.paradaActual().enviarFacturacion();
+		viaje.getParadaActual().enviarMailAShipper();
+		viaje.getParadaActual().enviarFacturacion();
 	}
 }

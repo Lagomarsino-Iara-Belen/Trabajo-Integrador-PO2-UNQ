@@ -9,7 +9,7 @@ public class FaseInbound implements FaseDeBuque {
 		// TODO Auto-generated method stub
 		if (distancia == 0) {
 			buque.setEstado(new FaseArrived());
-			viaje.paradaActual().enviarMailALosConsignees();
+			viaje.getParadaActual().enviarMailALosConsignees();
 		}
 	}
 

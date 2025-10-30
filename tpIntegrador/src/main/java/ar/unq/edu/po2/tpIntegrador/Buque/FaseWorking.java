@@ -10,7 +10,7 @@ public class FaseWorking implements FaseDeBuque {
 	}
 
 	private void notificarTerminal(Viaje viaje, Buque buque) {
-		viaje.paradaActual().cambiarElEstadoDe((new FaseDeparting()), buque);
+		viaje.getParadaActual().cambiarElEstadoDe((new FaseDeparting()), buque);
 	}
 
 

@@ -35,4 +35,8 @@ public class Circuito {
 		return this.tramos.stream().filter(tramo -> tramo.getPuertoOrigen().equals(terminal))
 				.map(Tramo :: getPuertoDestino).findFirst().orElse(null);
 	}
+
+	public ArrayList<Tramo> getTodosLosTramos() {
+		return tramos;
+	}
 }

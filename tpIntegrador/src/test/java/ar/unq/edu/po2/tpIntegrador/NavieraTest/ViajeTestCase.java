@@ -54,8 +54,10 @@ class ViajeTestCase {
 		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
 		when(tramo.getPuertoDestino()).thenReturn(terminal2);
 		
-		when(circuito.getTodosLosTramos())
-				.thenReturn(new ArrayList<>(List.of(tramo)));
+		when(circuito.proximaParadaDe(terminal1))
+				.thenReturn(terminal2);
+		when(circuito.haySiguienteParada(terminal1))
+				.thenReturn(true);
 		
 		viaje.proximaParada(terminal1);
 		

@@ -1,9 +1,11 @@
 package ar.unq.edu.po2.tpIntegrador.Buque;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
 import ar.unq.edu.po2.tpIntegrador.Naviera.Viaje;
+import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
 
 public class Buque implements Observador {
 	String nombre;
@@ -13,6 +15,7 @@ public class Buque implements Observador {
 	
 	public Buque(String nombre) {
 		this.nombre = nombre;
+		this.estado = new FaseOutbound(this);
 		containers = new ArrayList<Container>();
 	}
 	
@@ -39,5 +42,13 @@ public class Buque implements Observador {
 	@Override
 	public void actualizar(int distancia) {
 		estado.actualizar(this, distancia, this.getViaje());
+	}
+
+	public void cambiarEstado(FaseDeBuque fase) {
+		setEstado(fase);
+	}
+	
+	public void operar(List<Orden> ordenes) {
+		this.estado.operar(ordenes);
 	}
 }

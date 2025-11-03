@@ -37,20 +37,24 @@ public class Terminal {
 		return new Turno(horario);
 	}
 	
-	private void addOrden(Orden orden) {
+	public void addOrden(Orden orden) {
 		this.ordenes.add(orden);	
 	}
 	
-	private void addNaviera(Naviera naviera) {
+	public void addNaviera(Naviera naviera) {
 		this.navieras.add(naviera);
 	}
 	
-	private void addCliente(Cliente cliente) {
+	public void addCliente(Cliente cliente) {
 		this.clientes.add(cliente);
 	}
 	
 	public void cambiarElEstadoDe(FaseDeBuque fase, Buque buque) {
 		buque.cambiarEstado(fase);
+		this.verOperacionesDe(buque);
+	}
+	
+	public void verOperacionesDe(Buque buque) {
 		List<Orden> ordenesDelBuque = this.ordenes.stream()
 		        .filter(orden -> orden.getViaje().equals(buque.getViaje()))
 		        .collect(Collectors.toList());

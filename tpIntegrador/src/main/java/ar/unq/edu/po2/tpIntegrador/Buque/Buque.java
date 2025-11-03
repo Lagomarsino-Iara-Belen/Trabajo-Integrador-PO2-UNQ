@@ -45,7 +45,7 @@ public class Buque implements Observador {
 	}
 
 	public void cambiarEstado(FaseDeBuque fase) {
-		setEstado(fase);
+		this.setEstado(fase);
 	}
 	
 	public void operar(List<Orden> ordenes) {

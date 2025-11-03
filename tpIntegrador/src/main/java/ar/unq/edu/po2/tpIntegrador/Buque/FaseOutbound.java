@@ -9,7 +9,7 @@ public class FaseOutbound extends FaseDeBuque {
 	}
 
 	@Override
-	public void actualizar(Buque buque, int distancia, Viaje viaje) {
+	public void actualizar(int distancia, Viaje viaje) {
 		// TODO Auto-generated method stub
 		if (distancia < 50) {
 			buque.setEstado(new FaseInbound(buque));

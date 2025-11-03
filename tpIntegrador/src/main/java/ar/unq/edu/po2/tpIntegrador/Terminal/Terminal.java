@@ -4,10 +4,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Buque.FaseDeBuque;
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
+import ar.unq.edu.po2.tpIntegrador.Containers.Container;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.*;
 import ar.unq.edu.po2.tpIntegrador.Naviera.Naviera;
 import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
@@ -51,18 +53,19 @@ public class Terminal {
 	
 	public void cambiarElEstadoDe(FaseDeBuque fase, Buque buque) {
 		buque.cambiarEstado(fase);
-		this.verOperacionesDe(buque);
 	}
 	
 	public void verOperacionesDe(Buque buque) {
-		List<Orden> ordenesDelBuque = this.ordenes.stream()
-		        .filter(orden -> orden.getViaje().equals(buque.getViaje()))
-		        .collect(Collectors.toList());
-		buque.operar(ordenesDelBuque);
+		buque.operar(ordenesDelBuque(buque).collect(Collectors.toList()));
 	}
 
-	public void enviarMailAShipper() {
-		// TODO Auto-generated method stub
+	public void enviarMailAShipper(Buque buque, List<Container> containers) {
+		List<Cliente> shippers = containers.stream()
+			.flatMap(co -> co.getImportadores().stream())
+			.filter(shipper -> ordenesDelBuque(buque).anyMatch(orden -> orden.getCliente().equals(shipper)))
+			.collect(Collectors.toList());
+		
+		shippers.stream().forEach(shipper -> shipper.recibirMail());
 	}
 
 	public void enviarFacturacion() {
@@ -71,5 +74,9 @@ public class Terminal {
 
 	public void enviarMailALosConsignees() {
 		// TODO Auto-generated method stub
+	}
+	
+	private Stream<Orden> ordenesDelBuque(Buque buque) {
+		return this.ordenes.stream().filter(orden -> orden.getBuque().equals(buque));
 	}
 }

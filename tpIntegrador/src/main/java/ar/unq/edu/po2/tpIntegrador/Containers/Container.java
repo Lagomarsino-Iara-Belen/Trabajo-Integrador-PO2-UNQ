@@ -1,5 +1,10 @@
 package ar.unq.edu.po2.tpIntegrador.Containers;
 
+import java.util.List;
+
+import ar.unq.edu.po2.tpIntegrador.BLs.BL;
+import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
+
 public abstract class Container {
 	
 	private String id;
@@ -45,4 +50,8 @@ public abstract class Container {
 	public boolean getEsDesconsolidado() {
 		return desconsolidado;
 	}
+	
+	public abstract List<Cliente> getImportadores();
+	
+	public abstract BL getContenido();
 }

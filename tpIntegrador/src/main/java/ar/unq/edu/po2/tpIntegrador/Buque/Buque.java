@@ -9,7 +9,7 @@ import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
 
 public class Buque implements Observador {
 	String nombre;
-	ArrayList <Container> containers;
+	List <Container> containers;
 	FaseDeBuque estado;
 	Viaje viajeARealizar;
 	
@@ -31,6 +31,10 @@ public class Buque implements Observador {
 		containers.remove(container);
 	}
 	
+	public List<Container> getContainers() {
+		return this.containers;
+	}
+	
 	public void setViaje(Viaje viajeARealizar) {
 		this.viajeARealizar = viajeARealizar;
 	}
@@ -41,7 +45,7 @@ public class Buque implements Observador {
 	
 	@Override
 	public void actualizar(int distancia) {
-		estado.actualizar(this, distancia, this.getViaje());
+		estado.actualizar(distancia, this.getViaje());
 	}
 
 	public void cambiarEstado(FaseDeBuque fase) {

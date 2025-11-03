@@ -1,6 +1,9 @@
 package ar.unq.edu.po2.tpIntegrador.Containers;
 
+import java.util.List;
+
 import ar.unq.edu.po2.tpIntegrador.BLs.BLBasico;
+import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
 
 public class ContainerReefer extends Container {
 
@@ -19,6 +22,11 @@ public class ContainerReefer extends Container {
 
 	public BLBasico getContenido() {
 		return contenido;
+	}
+
+	@Override
+	public List<Cliente> getImportadores() {
+		return this.contenido.getImportador();
 	}
 	
 }

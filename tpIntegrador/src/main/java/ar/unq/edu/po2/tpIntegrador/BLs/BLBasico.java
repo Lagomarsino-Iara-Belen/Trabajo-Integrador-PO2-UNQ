@@ -2,35 +2,32 @@ package ar.unq.edu.po2.tpIntegrador.BLs;
 
 import java.util.List;
 
-import ar.unq.edu.po2.tpIntegrador.Clientes.Consignee;
+import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
 
 public class BLBasico implements BL {
 
 	private int peso;
 	private List<String> tipoProducto;
-	private List<Consignee> importadores;
+	private List<Cliente> importador;
 	
-	public BLBasico(int peso, List<String> tipoProducto, List<Consignee> importadores) {
+	public BLBasico(int peso,String tipoProducto, Cliente importador) {
 		this.peso = peso;
-		this.tipoProducto = tipoProducto;
-		this.importadores = importadores;
+		this.tipoProducto = List.of(tipoProducto);
+		this.importador = List.of(importador);
 	}
 
 	@Override
 	public List<String> getTipoProducto() {
-		// TODO Auto-generated method stub
 		return tipoProducto;
 	}
 
 	@Override
-	public List<Consignee> getImportador() {
-		// TODO Auto-generated method stub
-		return importadores;
+	public List<Cliente> getImportador() {
+		return importador;
 	}
 
 	@Override
-	public int getPeso() {
-		// TODO Auto-generated method stub
+	public double getPeso() {
 		return peso;
 	}
 }

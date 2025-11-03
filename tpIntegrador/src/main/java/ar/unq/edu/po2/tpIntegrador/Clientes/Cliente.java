@@ -1,6 +1,6 @@
 package ar.unq.edu.po2.tpIntegrador.Clientes;
 
-public abstract class Cliente {
+public class Cliente {
 	private String nombre;
 	private String mail;
 	
@@ -16,6 +16,8 @@ public abstract class Cliente {
 	public String getMail() {
 		return mail;
 	}
-	
-	
+
+	public void recibirMail() {
+		// Es figurativo, nos sirve para el mockito!
+	}
 }

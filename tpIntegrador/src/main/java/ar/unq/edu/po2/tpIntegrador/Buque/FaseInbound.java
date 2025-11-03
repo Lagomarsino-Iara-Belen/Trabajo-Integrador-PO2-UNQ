@@ -13,7 +13,7 @@ public class FaseInbound extends FaseDeBuque {
 		// TODO Auto-generated method stub
 		if (distancia == 0) {
 			buque.setEstado(new FaseArrived(buque));
-			viaje.getParadaActual().enviarMailALosConsignees();
+			viaje.getParadaActual().enviarMailALosClientesDe(buque, buque.getContainers());
 		}
 	}
 

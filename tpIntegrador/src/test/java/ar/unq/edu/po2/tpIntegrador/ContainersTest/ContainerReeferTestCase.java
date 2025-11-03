@@ -15,7 +15,7 @@ class ContainerReeferTestCase {
 	@BeforeEach
 	void setUp() throws Exception {
 		blBasico = mock(BLBasico.class);
-		this.containerReefer = new ContainerReefer("ABCD0000001", 20, 40, 10, 500, false, this.blBasico);
+		this.containerReefer = new ContainerReefer("ABCD0000001", 20, 40, 10, 500, false, this.blBasico, 0);
 	}
 	
 	@Test
@@ -45,7 +45,7 @@ class ContainerReeferTestCase {
 	
 	@Test
 	void testGetPeso(){
-		when(this.blBasico.getPeso()).thenReturn(500);
+		when(this.blBasico.getPeso()).thenReturn(500d);
 		assertEquals(this.blBasico.getPeso(), this.containerReefer.getPeso());
 	}
 	

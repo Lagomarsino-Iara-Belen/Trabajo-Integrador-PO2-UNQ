@@ -7,7 +7,6 @@ import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Camion;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Chofer;
-import ar.unq.edu.po2.tpIntegrador.Naviera.Viaje;
 import ar.unq.edu.po2.tpIntegrador.Servicios.Servicio;
 
 public class OrdenDeExportacion extends Orden {

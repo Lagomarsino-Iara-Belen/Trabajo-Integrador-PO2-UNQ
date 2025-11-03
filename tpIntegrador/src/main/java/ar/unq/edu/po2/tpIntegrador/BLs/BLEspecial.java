@@ -9,6 +9,8 @@ public class BLEspecial implements BL {
 	
 	private List<BL> contenidos;
 	private Cliente consignee;
+	
+	public BLEspecial()
 
 	@Override
 	public List<String> getTipoProducto() {

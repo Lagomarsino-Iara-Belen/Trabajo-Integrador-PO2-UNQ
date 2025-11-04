@@ -10,63 +10,58 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ar.unq.edu.po2.tpIntegrador.BLs.BLBasico;
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
-import ar.unq.edu.po2.tpIntegrador.Containers.ContainerReefer;
+import ar.unq.edu.po2.tpIntegrador.Containers.ContainerTanque;
 
-class ContainerReeferTestCase {
+class ContainerTanqueTestCase {
 
-	private ContainerReefer containerReefer;
+	private ContainerTanque containerTanque;
 	private BLBasico blBasico;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		blBasico = mock(BLBasico.class);
-		this.containerReefer = new ContainerReefer("ABCD0000001", 20, 40, 10, 500, false, this.blBasico, 0);
+		containerTanque = new ContainerTanque("ABCD0000001", 20, 40, 10, 500, false, this.blBasico);
 	}
 	
 	@Test
 	void testGetId() {
-		assertEquals("ABCD0000001", this.containerReefer.getId());
+		assertEquals("ABCD0000001", containerTanque.getId());
 	}
 	
 	@Test
 	void testGetAncho() {
-		assertEquals(20, this.containerReefer.getAncho());
+		assertEquals(20, containerTanque.getAncho());
 	}
 	
 	@Test
 	void testGetLargo() {
-		assertEquals(40, this.containerReefer.getLargo());
+		assertEquals(40, containerTanque.getLargo());
 	}
 	
 	@Test
 	void testGetMetroCubico() {
-		assertEquals(8000, this.containerReefer.getMetroCubico());
+		assertEquals(8000, containerTanque.getMetroCubico());
 	}
 	
 	@Test
 	void testGetAltura() {
-		assertEquals(10, this.containerReefer.getAltura());
+		assertEquals(10, containerTanque.getAltura());
 	}
 	
 	@Test
 	void testGetPeso(){
-		when(this.blBasico.getPeso()).thenReturn(500d);
-		assertEquals(this.blBasico.getPeso(), this.containerReefer.getPeso());
+		when(blBasico.getPeso()).thenReturn(500d);
+		assertEquals(blBasico.getPeso(), containerTanque.getPeso());
 	}
 	
 	@Test
 	void testGetEsDesconsolidado(){
-		assertEquals(false, this.containerReefer.getEsDesconsolidado());
+		assertEquals(false, containerTanque.getEsDesconsolidado());
 	}
 	
 	@Test
 	void testGetContenido() {
-		assertEquals(this.blBasico, this.containerReefer.getContenido());
-	}
-	
-	@Test
-	void testGetConsumo() {
-		assertEquals(0, containerReefer.getConsumo());
+		assertEquals(blBasico, containerTanque.getContenido());
 	}
 	
 	@Test
@@ -74,6 +69,7 @@ class ContainerReeferTestCase {
 		Cliente cliente = mock(Cliente.class);
 		when(blBasico.getImportador()).thenReturn(new ArrayList<>(List.of(cliente)));
 		
-		assertEquals(blBasico.getImportador(), containerReefer.getImportadores());
+		assertEquals(blBasico.getImportador(), containerTanque.getImportadores());
 	}
+
 }

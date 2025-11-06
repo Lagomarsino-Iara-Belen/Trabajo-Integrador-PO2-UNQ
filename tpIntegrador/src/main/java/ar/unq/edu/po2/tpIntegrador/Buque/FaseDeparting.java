@@ -18,6 +18,6 @@ public class FaseDeparting extends FaseDeBuque {
 
 	private void notificarTerminal(Viaje viaje) {
 		viaje.getParadaActual().enviarMailALosClientesDe(buque, buque.getContainers());
-		viaje.getParadaActual().enviarFacturacion();
+		viaje.getParadaActual().enviarFacturacion(buque, buque.getContainers());
 	}
 }

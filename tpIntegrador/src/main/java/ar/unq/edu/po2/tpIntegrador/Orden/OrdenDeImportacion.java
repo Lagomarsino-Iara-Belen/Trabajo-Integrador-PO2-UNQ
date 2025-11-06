@@ -1,26 +1,24 @@
 package ar.unq.edu.po2.tpIntegrador.Orden;
 
-import java.util.List;
-
+import java.time.LocalDateTime;
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Camion;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Chofer;
-import ar.unq.edu.po2.tpIntegrador.Servicios.Servicio;
 
 public class OrdenDeImportacion extends Orden {
-	
 	private Cliente consignee;
 	
-	public OrdenDeImportacion(Container container, List<Servicio> servicios, Camion camion, Chofer chofer, Buque buque, Cliente consignee) {
-		super(container, servicios, camion, chofer, buque);
+	public OrdenDeImportacion(LocalDateTime fechaSalida, LocalDateTime fechaLlegada, Container container, Chofer chofer,
+			Camion camion, Buque buque, Cliente consignee) {
+		super(fechaSalida, fechaLlegada, container, chofer, camion, buque);
 		this.consignee = consignee;
 	}
 
 	@Override
 	public void operarse(Buque buque) {
-		buque.addContainer(this.container);
+		buque.addContainer(this.getContainer());
 	}
 
 	@Override

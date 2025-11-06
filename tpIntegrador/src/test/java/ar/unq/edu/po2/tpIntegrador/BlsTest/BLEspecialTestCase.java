@@ -9,20 +9,20 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import ar.unq.edu.po2.tpIntegrador.BLs.BL;
 import ar.unq.edu.po2.tpIntegrador.BLs.BLBasico;
 import ar.unq.edu.po2.tpIntegrador.BLs.BLEspecial;
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
 
 class BLEspecialTestCase {
-	private BLEspecial blEspecial;
-	private Cliente cliente;
-	private Cliente cliente2;
-
+	private BLEspecial blEspecial = new BLEspecial(new ArrayList<BL>());
+	private Cliente cliente = mock(Cliente.class);
+	private Cliente cliente2 = mock(Cliente.class);;
+	private BLBasico blBasico = new BLBasico("Celulares", 500d,cliente);
+	
 	@BeforeEach
 	void setUp() throws Exception {
-		cliente = mock(Cliente.class);
-		
-		blEspecial = new BLEspecial(new ArrayList<>(List.of("Celulares")), 500d, new ArrayList<>(List.of(cliente)), new ArrayList<>());
+		blEspecial.addBL(blBasico);
 	}
 
 	@Test
@@ -69,41 +69,41 @@ class BLEspecialTestCase {
 		BLBasico blBasico = new BLBasico("Teclados", 600d,cliente2);
 		
 		blEspecial.addBL(blBasico);
+		
 		assertEquals(1100d, blEspecial.getPeso());
 	}
 	
 	@Test
 	void testGetBLs() {
-		assertEquals(List.of(), blEspecial.getBLs());
-	}
-	
-	@Test
-	void testGetBLs2() {
-		BLBasico blBasico = mock(BLBasico.class);
-	
-		blEspecial.addBL(blBasico);
 		assertEquals(List.of(blBasico), blEspecial.getBLs());
 	}
 	
 	@Test
-	void testAddBLs() {
-		BLBasico blBasico = mock(BLBasico.class);
+	void testGetBLs2() {
 		BLBasico blBasico2 = mock(BLBasico.class);
-	
-		blEspecial.addBL(blBasico);
+		
 		blEspecial.addBL(blBasico2);
-		assertEquals(List.of(blBasico, blBasico2), blEspecial.getBLs());
+		
+		assertEquals(List.of(blBasico,blBasico2), blEspecial.getBLs());
+	}
+	
+	@Test
+	void testAddBLs() {
+		BLBasico blBasico2 = mock(BLBasico.class);
+		BLBasico blBasico3 = mock(BLBasico.class);
+	
+		blEspecial.addBL(blBasico2);
+		blEspecial.addBL(blBasico3);
+		assertEquals(List.of(blBasico, blBasico2, blBasico3), blEspecial.getBLs());
 	}
 	
 	@Test
 	void testRemoveBLs() {
-		BLBasico blBasico = mock(BLBasico.class);
 		BLBasico blBasico2 = mock(BLBasico.class);
 	
-		blEspecial.addBL(blBasico);
 		blEspecial.addBL(blBasico2);
-		
 		blEspecial.removeBL(blBasico2);
+		
 		assertEquals(List.of(blBasico), blEspecial.getBLs());
 	}
 

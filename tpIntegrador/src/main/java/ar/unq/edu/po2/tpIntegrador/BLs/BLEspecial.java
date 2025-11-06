@@ -1,54 +1,39 @@
 package ar.unq.edu.po2.tpIntegrador.BLs;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
+import java.util.List;
 import java.util.stream.Stream;
 
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
 
 public class BLEspecial implements BL {
 	
-	private double peso;
-	private ArrayList<String> tipoProducto;
-	private ArrayList<BL> contenidos;
-	private ArrayList<Cliente> clientes;
+	private List<BL> contenidos;
 	
-	public BLEspecial(ArrayList<String> tipoProducto, double peso, ArrayList<Cliente> clientes, ArrayList<BL> contenidos) {
-		this.peso = peso;
-		this.tipoProducto = tipoProducto;
+	public BLEspecial(List<BL> contenidos) {
 		this.contenidos = contenidos;
-		this.clientes = clientes;
 	}
 
 	@Override	
-	public ArrayList<String> getTipoProducto() {
-	    return Stream.concat(
-	            tipoProducto.stream(),
-	            contenidos.stream()
-	                .flatMap(cont -> cont.getTipoProducto().stream())
-	        )
-	        .collect(Collectors.toCollection(ArrayList::new));
+	public List<String> getTipoProducto() {
+	    return this.contenidos.stream()
+	    		.map(bl -> bl.getTipoProducto())
+	    		.reduce((new ArrayList<String>()), (accum, rec) -> Stream.concat(accum.stream(), rec.stream()).toList());
 	}
 
-
 	@Override
-	public ArrayList<Cliente> getImportador() {
-		 return Stream.concat(
-		            clientes.stream(),
-		            contenidos.stream()
-		                .flatMap(cont -> cont.getImportador().stream())
-		        )
-		        .collect(Collectors.toCollection(ArrayList::new));
+	public List<Cliente> getImportador() {
+		 return this.contenidos.stream()
+		    		.map(bl -> bl.getImportador())
+		    		.reduce((new ArrayList<Cliente>()), (accum, rec) -> Stream.concat(accum.stream(), rec.stream()).toList());
 	}
 
 	@Override
 	public double getPeso() {
-		double cantAnterior = contenidos.stream().mapToDouble(cont -> cont.getPeso())
-				  								 .sum();
-		return peso + cantAnterior;
+		return this.contenidos.stream().mapToDouble(cont -> cont.getPeso()).sum();
 	}
 
-	public ArrayList<BL> getBLs() {
+	public List<BL> getBLs() {
 		return this.contenidos;
 	}
 	

@@ -23,5 +23,6 @@ public class FaseWorking extends FaseDeBuque {
 	@Override
 	public void operar(List<Orden> ordenes) {
 		ordenes.stream().forEach(orden -> orden.operarse(this.getBuque()));
+		
 	}
 }

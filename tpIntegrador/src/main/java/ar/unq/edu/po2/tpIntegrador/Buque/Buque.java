@@ -63,8 +63,8 @@ public class Buque implements Observador, Visitable {
 	public void operar(List<Orden> ordenes) {
 		this.estado.operar(ordenes);
 	}
-	public String aceptarReporte(Reporte reporte) {
-		return reporte.visitar(this);
+	public void aceptarReporte(Reporte reporte) {
+		reporte.visitar(this);
 	}
 
 	public String getNombre() {

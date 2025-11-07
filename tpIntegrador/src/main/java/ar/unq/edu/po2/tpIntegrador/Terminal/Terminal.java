@@ -86,6 +86,6 @@ public class Terminal {
 	}
 	
 	public String reporteParaBuque(Reporte reporte, Buque buque) {
-		return reporte.generarReportePara(buque);
+		return reporte.generarReportePara(buque, this.ordenesDelBuque(buque).toList());
 	}
 }

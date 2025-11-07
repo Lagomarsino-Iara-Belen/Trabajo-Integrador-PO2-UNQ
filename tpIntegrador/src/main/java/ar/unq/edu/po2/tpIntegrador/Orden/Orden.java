@@ -9,6 +9,7 @@ import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Camion;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Chofer;
+import ar.unq.edu.po2.tpIntegrador.Reporte.Reporte;
 import ar.unq.edu.po2.tpIntegrador.Servicios.Servicio;
 
 public abstract class Orden {
@@ -69,4 +70,6 @@ public abstract class Orden {
 	public void sacarServicio(Servicio servicio) {
 		this.servicios.add(servicio);
 	}
+
+	public abstract void aceptarReporte(Reporte reporte);
 }

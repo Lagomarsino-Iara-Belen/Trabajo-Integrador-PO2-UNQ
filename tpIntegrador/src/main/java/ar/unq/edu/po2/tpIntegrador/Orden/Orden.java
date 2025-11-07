@@ -71,5 +71,5 @@ public abstract class Orden {
 		this.servicios.add(servicio);
 	}
 
-	public abstract void aceptarReporte(Reporte reporte);
+	public abstract String aceptarReporte(Reporte reporte);
 }

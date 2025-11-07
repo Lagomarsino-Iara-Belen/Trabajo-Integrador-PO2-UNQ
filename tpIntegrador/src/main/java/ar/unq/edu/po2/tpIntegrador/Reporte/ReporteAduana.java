@@ -1,14 +1,18 @@
 package ar.unq.edu.po2.tpIntegrador.Reporte;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
+import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
+import ar.unq.edu.po2.tpIntegrador.Orden.OrdenDeExportacion;
+import ar.unq.edu.po2.tpIntegrador.Orden.OrdenDeImportacion;
 
 public class ReporteAduana implements Reporte {
 
 	@Override
-	public String generarReportePara(Buque buque) {
+	public String generarReportePara(Buque buque, List<Orden> ordenes) {
 		return buque.aceptarReporte(this);
 	}
 
@@ -34,4 +38,13 @@ public class ReporteAduana implements Reporte {
 		return lista;
 	}
 
+	@Override
+	public String visitar(OrdenDeExportacion orden) {
+		return "";
+	}
+
+	@Override
+	public String visitar(OrdenDeImportacion orden) {
+		return "";
+	}
 }

@@ -29,8 +29,8 @@ public class OrdenDeImportacion extends Orden implements Visitable {
 	}
 
 	@Override
-	public void aceptarReporte(Reporte reporte) {
-		reporte.visitar(this);
+	public String aceptarReporte(Reporte reporte) {
+		return reporte.visitar(this);
 		
 	}
 }

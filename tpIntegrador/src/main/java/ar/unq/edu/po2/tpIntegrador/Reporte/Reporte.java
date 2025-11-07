@@ -11,9 +11,9 @@ public interface Reporte {
 
 	public String generarReportePara(Buque buque, List<Orden> list);
 
-	public void visitar(Buque buque);
+	public String visitar(Buque buque);
 
-	public void visitar(OrdenDeExportacion orden);
+	public String visitar(OrdenDeExportacion orden);
 
-	public void visitar(OrdenDeImportacion orden);
+	public String visitar(OrdenDeImportacion orden);
 }

@@ -86,6 +86,38 @@ class ViajeTestCase {
 		
 		assertEquals(circuito.getPuertoInicio(), viaje.getParadaActual());
 	}
+	
+	@Test
+	void testFechaDeParada() {
+		terminal1 = mock(Terminal.class);
+		
+		tramo = mock(Tramo.class);
+		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
+		
+		when(circuito.getTodosLosTramos())
+				.thenReturn(new ArrayList<>(List.of(tramo)));
+		 
+		
+		assertEquals(fecha, viaje.fechaDeParada(terminal1));
+	}
+	
+	@Test
+	void testFechaDeParada2() {
+		terminal1 = mock(Terminal.class);
+		terminal2 = mock(Terminal.class);
+		
+		tramo = mock(Tramo.class);
+		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
+		when(tramo.getPuertoDestino()).thenReturn(terminal2);
+		when(tramo.getSemanas()).thenReturn(2);
+		
+		when(circuito.getTodosLosTramos())
+				.thenReturn(new ArrayList<>(List.of(tramo)));
+		
+		assertEquals(fecha.plusWeeks(2), viaje.fechaDeParada(terminal2));
+	}
+	
+	
 
 
 }

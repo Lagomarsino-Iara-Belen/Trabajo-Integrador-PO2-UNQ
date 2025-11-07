@@ -16,6 +16,7 @@ import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.EmpresaTransportista;
 import ar.unq.edu.po2.tpIntegrador.Naviera.Naviera;
 import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
 import ar.unq.edu.po2.tpIntegrador.Orden.Turno;
+import ar.unq.edu.po2.tpIntegrador.Reporte.Reporte;
 
 public class Terminal {
 
@@ -82,5 +83,9 @@ public class Terminal {
 	
 	private Stream<Orden> ordenesDelBuque(Buque buque) {
 		return this.ordenes.stream().filter(orden -> orden.getBuque().equals(buque));
+	}
+	
+	public String reporteParaBuque(Reporte reporte, Buque buque) {
+		return reporte.generarReportePara(buque);
 	}
 }

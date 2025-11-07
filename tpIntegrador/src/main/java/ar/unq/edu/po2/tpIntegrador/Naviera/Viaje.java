@@ -46,10 +46,24 @@ public class Viaje {
 	}
 
 	public void proximaParada(Terminal terminal) {  
-		//Preguntar porque la necesito T.T . Se que es para pasar a la otra terminal, pero la terminal pasada por parametro tiene que ser la terminal actual
 		if(circuito.haySiguienteParada(terminal)) {
 			paradaActual = circuito.proximaParadaDe(terminal);
 		}
+	}
+
+	/**
+	 * Dada una terminal que se debe encontrar en mi lista de Circuito, me devuelve la fecha correspondiente al cronograma 
+	 * @param paradaAver Terminal pasada por parametro
+	 * @return La fecha correspondiente al cronograma de la terminal dada por parametro
+	 */
+	public LocalDate fechaDeParada(Terminal paradaAver) {
+		Terminal paradaAIterar = circuito.getPuertoInicio();
+		int nro = 0;
+		while(paradaAver != paradaAIterar && circuito.haySiguienteParada(paradaAIterar)) {
+			nro = nro + 1;
+			paradaAIterar = circuito.proximaParadaDe(paradaAIterar);
+		}
+		return cronograma().get(nro);
 	}
 
 

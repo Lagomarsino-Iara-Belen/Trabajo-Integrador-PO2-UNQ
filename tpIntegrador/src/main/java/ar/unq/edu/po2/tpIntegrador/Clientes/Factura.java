@@ -10,8 +10,8 @@ public class Factura {
 	}
 	
 	public double montoTotal() {
-		return ordenDesgloce.getServicios().stream()
-				.mapToDouble(servicio -> servicio.precioDelServicio(ordenDesgloce.getContainer()))
+		return this.ordenDesgloce.getServicios().stream()
+				.mapToDouble(servicio -> servicio.precioDelServicio(this.ordenDesgloce.getContainer()))
 				.sum();
 	}
 }

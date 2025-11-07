@@ -5,26 +5,26 @@ import java.util.List;
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 
 public class Naviera {
-	private Viaje viajeARealizar;
+	private List<Viaje> viajes;
 	private List<Buque> buques;
 	private List<Circuito> circuitos;
 
-	public Naviera(Viaje viajeARealizar, List<Buque> buques, List<Circuito> circuitos) {
-		this.viajeARealizar = viajeARealizar;
+	public Naviera(List<Viaje> viajes, List<Buque> buques, List<Circuito> circuitos) {
+		this.viajes= viajes;
 		this.buques = buques;
 		this.circuitos = circuitos;
 	}
 
-	public Viaje getViajeARealizar() {
-		return viajeARealizar;
+	public List<Viaje> getViajeARealizar() {
+		return this.viajes;
 	}
 
 	public List<Buque> getBuques() {
-		return buques;
+		return this.buques;
 	}
 
 	public List<Circuito> getCurcuitos() {
-		return circuitos;
+		return this.circuitos;
 	}
 	
 	public void addCircuito(Circuito c) {

@@ -94,7 +94,6 @@ class NavieraTestCase {
 
 	    @Test
 	    void testAsignarViaje() {
-	        // Acción
 	        naviera.asignarViaje(buque1, viaje1);
 
 	        verify(buque1).setViaje(viaje1);

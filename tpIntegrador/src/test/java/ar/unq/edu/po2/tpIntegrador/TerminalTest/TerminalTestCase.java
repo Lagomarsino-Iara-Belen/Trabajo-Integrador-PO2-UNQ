@@ -202,21 +202,17 @@ public class TerminalTestCase {
 
         terminal.exportar(ordenMock, clienteMock, transportistaMock);
 
-        // Se agregó la orden a la terminal
         assertTrue(terminal.getOrdenes().contains(ordenMock));
 
-        // Se agregó el transportista
         assertTrue(terminal.getTransportistas().contains(transportistaMock));
 
-        // Se guardó un turno en el cliente y se seteo el turno en la orden
         ArgumentCaptor<Turno> captor = ArgumentCaptor.forClass(Turno.class);
         verify(clienteMock).guardarTurno(captor.capture());
         verify(ordenMock).setTurno(any(Turno.class));
 
         Turno turnoCreado = captor.getValue();
         assertNotNull(turnoCreado);
-
-        // Verificamos que el turno creado tenga inicio = fechaSalida y fin = +3 horas
+        
         assertEquals(salida, turnoCreado.getFechaInicio());
         assertEquals(salida.plusHours(3), turnoCreado.getFechaFin());
     }
@@ -234,13 +230,10 @@ public class TerminalTestCase {
 
         terminal.importar(ordenMock, clienteMock, transportistaMock);
 
-        // Se agregó la orden a la terminal
         assertTrue(terminal.getOrdenes().contains(ordenMock));
 
-        // Se agregó el transportista
         assertTrue(terminal.getTransportistas().contains(transportistaMock));
 
-        // Se guardó un turno en el cliente y se seteo el turno en la orden
         ArgumentCaptor<Turno> captor = ArgumentCaptor.forClass(Turno.class);
         verify(clienteMock).guardarTurno(captor.capture());
         verify(ordenMock).setTurno(any(Turno.class));
@@ -248,7 +241,6 @@ public class TerminalTestCase {
         Turno turnoCreado = captor.getValue();
         assertNotNull(turnoCreado);
 
-        // Verificamos que el turno creado tenga inicio = fechaLlegada y fin = +24 horas
         assertEquals(llegada, turnoCreado.getFechaInicio());
         assertEquals(llegada.plusHours(24), turnoCreado.getFechaFin());
     }

@@ -40,7 +40,7 @@ public class EmpresaTransportista {
 		this.camiones.add(camion);
 	}
 	
-	public void removeChofer(Camion camion) {
+	public void removeCamion(Camion camion) {
 		this.camiones.remove(camion);
 	}
 	

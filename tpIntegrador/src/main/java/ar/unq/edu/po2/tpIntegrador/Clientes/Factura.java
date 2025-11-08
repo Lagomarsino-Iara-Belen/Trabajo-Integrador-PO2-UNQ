@@ -14,4 +14,8 @@ public class Factura {
 				.mapToDouble(servicio -> servicio.precioDelServicio(this.ordenDesgloce.getContainer()))
 				.sum();
 	}
+
+	public Orden getOrden() {
+		return this.ordenDesgloce;
+	}
 }

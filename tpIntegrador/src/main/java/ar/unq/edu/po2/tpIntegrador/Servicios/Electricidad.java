@@ -7,12 +7,12 @@ public class Electricidad implements Servicio {
 	private Double precio;
 	private int horasDeConsumo;
 	
-	public Electricidad(Double precio) {
-		this.precio = precio; 
+	public Electricidad(Double precio, int horasDeConsumo) {
+		this.precio = precio;
+		this.horasDeConsumo = horasDeConsumo;
 	}
 
 	public Double getPrecio() {
-		// TODO Auto-generated method stub
 		return precio;
 	}
 	

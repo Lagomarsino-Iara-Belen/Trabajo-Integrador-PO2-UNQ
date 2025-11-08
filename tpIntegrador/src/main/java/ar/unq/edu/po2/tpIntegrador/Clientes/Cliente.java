@@ -20,6 +20,14 @@ public class Cliente {
 		this.transportista = transportista;
 	}
 	
+	public List<Factura> getFacturas(){
+		return this.facturas;
+	}
+	
+	public List<Turno> getTurnos(){
+		return this.turnos;
+	}
+	
 	public String getNombre() {
 		return this.nombre;
 	}

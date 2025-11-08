@@ -7,8 +7,9 @@ public class Almacenamiento implements Servicio{
 	private Double precio;
 	private int diasExcedidos;
 	
-	public Almacenamiento(Double precio) {
+	public Almacenamiento(Double precio, int diasExcedidos) {
 		this.precio = precio; 
+		this.diasExcedidos = diasExcedidos;
 	}
 
 	public Double getPrecio() {

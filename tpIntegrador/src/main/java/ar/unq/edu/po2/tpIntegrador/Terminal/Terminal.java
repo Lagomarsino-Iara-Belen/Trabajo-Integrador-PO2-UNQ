@@ -1,10 +1,11 @@
 package ar.unq.edu.po2.tpIntegrador.Terminal;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Buque.FaseDeBuque;
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
@@ -23,20 +24,40 @@ public class Terminal {
 	List<Orden> ordenes = new ArrayList<Orden>();
 	List<Cliente> clientes = new ArrayList<Cliente>();
 	List<Naviera> navieras = new ArrayList<Naviera>();
-	List<EmpresaTransportista> transportistas = new ArrayList<EmpresaTransportista>();
+	Set<EmpresaTransportista> transportistas = new HashSet<EmpresaTransportista>();
 	
-	public boolean chequearCamionYChofer(Camion camion, Chofer chofer) {
+	public boolean chequearEnvio(Camion camion, Chofer chofer, Turno turno) {
+		return this.chequearCamionYChofer(camion, chofer) && this.chequearTurno(turno);
+	}
+	
+	private boolean chequearTurno(Turno turno) {
+		return turno.estáRetrasado();
+	}
+	
+	private boolean chequearCamionYChofer(Camion camion, Chofer chofer) {
 		return this.transportistas.stream().anyMatch(transportista -> transportista.chequearCamionYChofer(camion, chofer));
 	}
 	
-	public void exportar(Orden orden, Cliente cliente) {
-		addOrden(orden);
-		cliente.guardarTurno(new Turno(orden.getFechaSalida()));
+	public void exportar(Orden orden, Cliente cliente, EmpresaTransportista transportista) {
+		Turno turnoExp = new Turno(orden.getFechaSalida(),orden.getFechaSalida().plusHours(3));
+		
+		this.addOrden(orden);
+		this.addTransportista(transportista);
+		cliente.guardarTurno(turnoExp);
+		orden.setTurno(turnoExp); // Esto lo tendria que sacar porque lo tendria que hacer el motor de busqueda cuando lo genera, por eso no esta en el UML
+	}
+
+	public void importar(Orden orden, Cliente cliente, EmpresaTransportista transportista) {
+		Turno turnoImp = new Turno(orden.getFechaLlegada(),orden.getFechaLlegada().plusHours(24));
+		
+		this.addOrden(orden); 
+		this.addTransportista(transportista);
+		cliente.guardarTurno(turnoImp);
+		orden.setTurno(turnoImp); // Esto lo tendria que sacar porque lo tendria que hacer el motor de busqueda cuando lo genera, por eso no esta en el UML
 	}
 	
-	public void importar(Orden orden, Cliente cliente) {
-		addOrden(orden); 
-		// Falta ver que hacer con el cliente!
+	public void addTransportista(EmpresaTransportista transportista) {
+		this.transportistas.add(transportista);
 	}
 	
 	public void addOrden(Orden orden) {
@@ -56,23 +77,33 @@ public class Terminal {
 	}
 	
 	public void verOperacionesDe(Buque buque) {
-		buque.operar(ordenesDelBuque(buque).collect(Collectors.toList()));
+		buque.operar(this.ordenesDelBuque(buque).collect(Collectors.toList()));
 	}
 
 	public void enviarMailALosClientesDe(Buque buque, List<Container> containers) {
-		clientesConOrdenesEn(buque, containers).stream().forEach(cliente -> cliente.recibirMail());
+		this.clientesConOrdenesEn(buque, containers).stream().forEach(cliente -> cliente.recibirMail());
 	}
 
 	public void enviarFacturacion(Buque buque, List<Container> containers) {
-		ordenesDelBuque(buque)
+		this.ordenesDelBuque(buque)
 		.forEach(orden -> orden.getContainer().getImportadores().stream()
 				.forEach(cliente -> this.hacerFacturaPara(cliente, orden)));
+	}
+	
+	public void avisarAClientes(Buque buque) {
+		this.ordenesDelBuque(buque).forEach(orden -> orden.avisarCliente(this));
+		
 	}
 	
 	public void hacerFacturaPara(Cliente cliente, Orden orden) {
 		cliente.guardarFactura(new Factura(orden));
 	}
 	
+	/**
+	 * los clientes con ordenes en el buque dado por parametro nunca van a ser shippers y consignees juntos porque, antes de trabajar en el buque
+	 * solo hay ordenes de importacion que estoy esperando, porque las de exportacion todavia no las subi, despues de trabajar en el buque
+	 * solo hay ordenes de exportacion que envie, porque las de importacion ya las bajé.
+	 */
 	private List<Cliente> clientesConOrdenesEn(Buque buque, List<Container> containers) {
 		List<Cliente> clientes = containers.stream()
 			.flatMap(container -> container.getImportadores().stream())

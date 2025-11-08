@@ -1,13 +1,14 @@
 package ar.unq.edu.po2.tpIntegrador.Orden;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Turno {
 
 	LocalDateTime horario;
-	LocalDateTime retraso;
+	Duration retraso;
 	
-	public Turno(LocalDateTime horario, LocalDateTime retraso) {
+	public Turno(LocalDateTime horario, Duration duration) {
 		this.horario = horario;
 	}
 	
@@ -15,11 +16,19 @@ public class Turno {
 		return this.horario;
 	}
 	
-	public LocalDateTime getRetraso() {
+	public Duration getRetraso() {
 		return this.retraso;
 	}
 	
 	public boolean estáRetrasado() {
-		return this.horario.plusHours(this.retraso.getHour()).isBefore(LocalDateTime.now());
+		return this.getFechaInicio().isAfter(getFechaFin());
 	}
+	
+	public LocalDateTime getFechaInicio() {
+	    return this.horario;
+	}
+
+	public LocalDateTime getFechaFin() {
+        return this.horario.plus(this.retraso);
+    }
 }

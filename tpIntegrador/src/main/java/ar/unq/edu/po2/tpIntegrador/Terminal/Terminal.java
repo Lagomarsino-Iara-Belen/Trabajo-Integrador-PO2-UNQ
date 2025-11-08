@@ -18,6 +18,7 @@ import ar.unq.edu.po2.tpIntegrador.Naviera.Naviera;
 import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
 import ar.unq.edu.po2.tpIntegrador.Orden.Turno;
 import ar.unq.edu.po2.tpIntegrador.Reporte.Reporte;
+import java.time.Duration;
 
 public class Terminal {
 
@@ -38,8 +39,20 @@ public class Terminal {
 		return this.transportistas.stream().anyMatch(transportista -> transportista.chequearCamionYChofer(camion, chofer));
 	}
 	
+	public List<Orden> getOrdenes() {
+		return ordenes;
+	}
+
+	public List<Naviera> getNavieras() {
+		return navieras;
+	}
+
+	public Set<EmpresaTransportista> getTransportistas() {
+		return transportistas;
+	}
+
 	public void exportar(Orden orden, Cliente cliente, EmpresaTransportista transportista) {
-		Turno turnoExp = new Turno(orden.getFechaSalida(),orden.getFechaSalida().plusHours(3));
+		Turno turnoExp = new Turno(orden.getFechaSalida(),Duration.ofHours(3));
 		
 		this.addOrden(orden);
 		this.addTransportista(transportista);
@@ -48,7 +61,7 @@ public class Terminal {
 	}
 
 	public void importar(Orden orden, Cliente cliente, EmpresaTransportista transportista) {
-		Turno turnoImp = new Turno(orden.getFechaLlegada(),orden.getFechaLlegada().plusHours(24));
+		Turno turnoImp = new Turno(orden.getFechaLlegada(),Duration.ofHours(24));
 		
 		this.addOrden(orden); 
 		this.addTransportista(transportista);
@@ -118,5 +131,17 @@ public class Terminal {
 	
 	public String reporteParaBuque(Reporte reporte, Buque buque) {
 		return reporte.generarReportePara(buque, this.ordenesDelBuque(buque).toList());
+	}
+	
+	public void removeTransportista(EmpresaTransportista e) {
+		this.transportistas.remove(e);
+	}
+	
+	public void removeOrden(Orden o) {
+		this.ordenes.remove(o);
+	}
+	
+	public void removeNaviera(Naviera n) {
+		this.navieras.remove(n);
 	}
 }

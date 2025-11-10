@@ -8,9 +8,10 @@ public class CriteriosCombinados implements CriterioDeRuta {
 	private CriterioDeRuta criterioDer;
 	private OperadorLogico operador;
 	
-	public CriteriosCombinados(CriterioDeRuta criterio1, CriterioDeRuta criterio2) {
+	public CriteriosCombinados(CriterioDeRuta criterio1, CriterioDeRuta criterio2, OperadorLogico operador) {
 		criterioIzq = criterio1;
 		criterioDer = criterio2;
+		this.operador = operador;
 	}
 
 	@Override

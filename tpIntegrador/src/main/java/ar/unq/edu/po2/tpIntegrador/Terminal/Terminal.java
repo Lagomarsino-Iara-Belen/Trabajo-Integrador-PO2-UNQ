@@ -26,6 +26,11 @@ public class Terminal {
 	List<Cliente> clientes = new ArrayList<Cliente>();
 	List<Naviera> navieras = new ArrayList<Naviera>();
 	Set<EmpresaTransportista> transportistas = new HashSet<EmpresaTransportista>();
+	MotorDeBusqueda motor;
+	
+	public Terminal(MotorDeBusqueda motor) {
+		this.motor = motor;
+	}
 	
 	public boolean chequearEnvio(Camion camion, Chofer chofer, Turno turno) {
 		return this.chequearCamionYChofer(camion, chofer) && this.chequearTurno(turno);
@@ -143,5 +148,9 @@ public class Terminal {
 	
 	public void removeNaviera(Naviera n) {
 		this.navieras.remove(n);
+	}
+	
+	public void cambiarCriterioDelMotor(CriterioDeRuta criterio) {
+		this.motor.setCriterioDeRuta(criterio);
 	}
 }

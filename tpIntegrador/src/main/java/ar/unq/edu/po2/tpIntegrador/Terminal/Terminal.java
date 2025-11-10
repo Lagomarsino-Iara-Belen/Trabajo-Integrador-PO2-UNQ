@@ -15,6 +15,7 @@ import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Camion;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Chofer;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.EmpresaTransportista;
 import ar.unq.edu.po2.tpIntegrador.Naviera.Naviera;
+import ar.unq.edu.po2.tpIntegrador.Naviera.Viaje;
 import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
 import ar.unq.edu.po2.tpIntegrador.Orden.Turno;
 import ar.unq.edu.po2.tpIntegrador.Reporte.Reporte;
@@ -91,7 +92,7 @@ public class Terminal {
 	}
 	
 	public void cambiarElEstadoDe(FaseDeBuque fase, Buque buque) {
-		buque.cambiarEstado(fase);
+		buque.setFase(fase);
 	}
 	
 	public void verOperacionesDe(Buque buque) {
@@ -152,5 +153,13 @@ public class Terminal {
 	
 	public void cambiarCriterioDelMotor(CriterioDeRuta criterio) {
 		this.motor.setCriterioDeRuta(criterio);
+	}
+	
+	public List<Viaje> buscarRuta() {
+		List<Viaje> rutas = this.navieras.stream()
+				.flatMap(naviera -> naviera.getViajeARealizar().stream())
+				.collect(Collectors.toList());
+		
+		return this.motor.buscarRuta(rutas, this);
 	}
 }

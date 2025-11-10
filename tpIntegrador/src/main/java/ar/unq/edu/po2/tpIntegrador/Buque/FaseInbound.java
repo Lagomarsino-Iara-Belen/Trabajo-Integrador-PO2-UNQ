@@ -11,7 +11,7 @@ public class FaseInbound extends FaseDeBuque {
 	@Override
 	public void actualizar(int distancia, Viaje viaje) {
 		if (distancia == 0) {
-			buque.setEstado(new FaseArrived(buque));
+			buque.setFase(new FaseArrived(buque));
 			viaje.getParadaActual().enviarMailALosClientesDe(buque, buque.getContainers());
 			viaje.getParadaActual().avisarAClientes(buque);
 		}

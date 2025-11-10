@@ -6,7 +6,6 @@ public class CriterioPuertoDestino implements CriterioDeRuta {
 
 	@Override
 	public boolean seCumplenQue(Viaje viaje, Terminal terminal) {
-		// TODO Auto-generated method stub
-		return false;
+		return viaje.pasaPor(terminal);
 	}
 }

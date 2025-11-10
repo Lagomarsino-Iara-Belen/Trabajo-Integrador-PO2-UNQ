@@ -66,5 +66,11 @@ public class Viaje {
 		return cronograma().get(nro);
 	}
 
-
+	public boolean pasaPor(Terminal parada) {
+		Terminal paradaAIterar = circuito.getPuertoInicio();
+		while(parada != paradaAIterar && circuito.haySiguienteParada(paradaAIterar)) {
+			paradaAIterar = circuito.proximaParadaDe(paradaAIterar);
+		}
+		return parada == paradaAIterar;
+	}
 }

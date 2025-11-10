@@ -37,5 +37,13 @@ class GPSTestCase {
 		verify(buque).actualizar(gps.getUbicacion());
 	}
 	
-
+	@Test
+	void testRemoveObserver() {
+		buque = mock(Buque.class);
+		
+		gps.addObserver(buque);
+		gps.removeObserver(buque);
+		
+		assertEquals(0, gps.getObservers().size());
+	}
 }

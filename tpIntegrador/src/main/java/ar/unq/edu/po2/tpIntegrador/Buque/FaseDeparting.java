@@ -11,7 +11,7 @@ public class FaseDeparting extends FaseDeBuque {
 	@Override
 	public void actualizar(int distancia, Viaje viaje) {
 		if(distancia > 1) {
-			buque.setEstado(new FaseOutbound(buque));
+			buque.setFase(new FaseOutbound(buque));
 			notificarTerminal(viaje);
 		}
 	}

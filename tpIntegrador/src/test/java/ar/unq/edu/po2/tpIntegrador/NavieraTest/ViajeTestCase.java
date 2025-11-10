@@ -27,6 +27,9 @@ class ViajeTestCase {
 	void setUp() throws Exception {
 		fecha = LocalDate.of(2025, 10, 20);
 		circuito = mock(Circuito.class);
+		terminal1 = mock(Terminal.class);
+		
+		when(circuito.getPuertoInicio()).thenReturn(terminal1);
 		
 		viaje = new Viaje(fecha, circuito); 
 	}
@@ -47,12 +50,7 @@ class ViajeTestCase {
 	
 	@Test
 	void testProximaParada() { 
-		terminal1 = mock(Terminal.class);
 		terminal2 = mock(Terminal.class);
-		
-		tramo = mock(Tramo.class);
-		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
-		when(tramo.getPuertoDestino()).thenReturn(terminal2);
 		
 		when(circuito.proximaParadaDe(terminal1))
 				.thenReturn(terminal2);
@@ -62,6 +60,16 @@ class ViajeTestCase {
 		viaje.proximaParada(terminal1);
 		
 		assertEquals(terminal2, viaje.getParadaActual());
+	}
+	
+	@Test
+	void testProximaParada2() { 
+		when(circuito.haySiguienteParada(terminal1))
+				.thenReturn(false);
+		
+		viaje.proximaParada(terminal1);
+		
+		assertEquals(terminal1, viaje.getParadaActual());
 	}
 	
 	@Test
@@ -76,8 +84,6 @@ class ViajeTestCase {
 	
 	@Test
 	void testGetParadaActual() {
-		terminal1 = mock(Terminal.class);
-		
 		tramo = mock(Tramo.class);
 		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
 		
@@ -89,8 +95,6 @@ class ViajeTestCase {
 	
 	@Test
 	void testFechaDeParada() {
-		terminal1 = mock(Terminal.class);
-		
 		tramo = mock(Tramo.class);
 		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
 		
@@ -103,7 +107,6 @@ class ViajeTestCase {
 	
 	@Test
 	void testFechaDeParada2() {
-		terminal1 = mock(Terminal.class);
 		terminal2 = mock(Terminal.class);
 		
 		tramo = mock(Tramo.class);
@@ -120,5 +123,68 @@ class ViajeTestCase {
 			.thenReturn(true);
 		
 		assertEquals(fecha.plusWeeks(2), viaje.fechaDeParada(terminal2));
+	}
+	
+	@Test
+	void testFechaDeParada3() {
+		terminal2 = mock(Terminal.class);
+		
+		when(circuito.getTodosLosTramos())
+				.thenReturn(new ArrayList<>());
+
+		when(circuito.haySiguienteParada(terminal1))
+			.thenReturn(false);
+		
+		assertEquals(fecha, viaje.fechaDeParada(terminal2));
+	}
+	
+	@Test
+	void testPasaPor() {
+		tramo = mock(Tramo.class);
+		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
+		
+		when(circuito.getTodosLosTramos())
+				.thenReturn(new ArrayList<>(List.of(tramo)));
+		when(circuito.getPuertoInicio()).thenReturn(terminal1);
+		
+		assertTrue(viaje.pasaPor(terminal1));
+	}
+	
+	@Test
+	void testPasaPor2() {
+		terminal2 = mock(Terminal.class);
+		
+		tramo = mock(Tramo.class);
+		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
+		when(tramo.getPuertoDestino()).thenReturn(terminal2);
+		when(tramo.getSemanas()).thenReturn(2);
+		
+		when(circuito.getPuertoInicio()).thenReturn(terminal1);
+		when(circuito.getTodosLosTramos())
+				.thenReturn(new ArrayList<>(List.of(tramo)));
+		when(circuito.proximaParadaDe(terminal1))
+			.thenReturn(terminal2);
+		when(circuito.haySiguienteParada(terminal1))
+			.thenReturn(true);
+		
+		assertTrue(viaje.pasaPor(terminal2));
+	}
+	
+	@Test
+	void testPasaPor3() {
+		terminal2 = mock(Terminal.class);
+		
+		tramo = mock(Tramo.class);
+		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
+		when(tramo.getPuertoDestino()).thenReturn(terminal2);
+		when(tramo.getSemanas()).thenReturn(2);
+		
+		when(circuito.getPuertoInicio()).thenReturn(terminal1);
+		when(circuito.getTodosLosTramos())
+				.thenReturn(new ArrayList<>(List.of(tramo)));
+		when(circuito.haySiguienteParada(terminal1))
+			.thenReturn(false);
+		
+		assertFalse(viaje.pasaPor(terminal2));
 	}
 }

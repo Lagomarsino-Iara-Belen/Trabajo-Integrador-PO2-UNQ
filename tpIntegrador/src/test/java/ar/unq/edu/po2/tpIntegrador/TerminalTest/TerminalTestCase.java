@@ -12,6 +12,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,9 +30,12 @@ import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Camion;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Chofer;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.EmpresaTransportista;
 import ar.unq.edu.po2.tpIntegrador.Naviera.Naviera;
+import ar.unq.edu.po2.tpIntegrador.Naviera.Viaje;
 import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
 import ar.unq.edu.po2.tpIntegrador.Orden.Turno;
 import ar.unq.edu.po2.tpIntegrador.Reporte.Reporte;
+import ar.unq.edu.po2.tpIntegrador.Terminal.CriterioDeRuta;
+import ar.unq.edu.po2.tpIntegrador.Terminal.MotorDeBusqueda;
 import ar.unq.edu.po2.tpIntegrador.Terminal.Terminal;
 
 public class TerminalTestCase {
@@ -45,13 +49,17 @@ public class TerminalTestCase {
     @Mock private Camion camionMock;
     @Mock private Chofer choferMock;
     @Mock private Turno turnoMock;
+    @Mock private MotorDeBusqueda motor;
     private Orden ordenMock;
     private Cliente clienteMock;
     private Naviera navieraMock;
-
+    
     @BeforeEach
     void setup() {
-    	terminal = new Terminal();
+    	motor = mock(MotorDeBusqueda.class);
+    	
+    	terminal = new Terminal(motor);
+    	
         buque = mock(Buque.class);
         orden = mock(Orden.class);
         cliente = mock(Cliente.class);
@@ -77,13 +85,39 @@ public class TerminalTestCase {
         terminal.addTransportista(transportistaMock);
     }
 
+    @Test 
+    void testCambiarCriterioDelMotor() {
+    	CriterioDeRuta criterioNuevo = mock(CriterioDeRuta.class);
+    	
+    	terminal.cambiarCriterioDelMotor(criterioNuevo);
+    	
+    	verify(motor).setCriterioDeRuta(criterioNuevo);
+    }
+    
+    @Test
+    void testBuscarRuta() {
+    	Viaje viaje1 = mock(Viaje.class);
+    	Viaje viaje2 = mock(Viaje.class);
+    	
+    	List<Viaje> rutas = new ArrayList<Viaje>();
+    	rutas.add(viaje1);
+    	List<Viaje> rutas2 = rutas;
+    	rutas.add(viaje2);
+    	
+    	when(navieraMock.getViajeARealizar()).thenReturn(rutas);
+    	when(motor.buscarRuta(rutas, terminal)).thenReturn(rutas2);
+    	terminal.addNaviera(navieraMock);
+    	
+    	assertEquals(terminal.buscarRuta(),rutas2);
+    }
+    
     @Test
     void testCambiarEstadoDe() {
         FaseDeBuque fase = mock(FaseDeBuque.class);
 
         terminal.cambiarElEstadoDe(fase, buque);
 
-        verify(buque).cambiarEstado(fase);
+        verify(buque).setFase(fase);
     }
 
     @Test

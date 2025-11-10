@@ -14,6 +14,7 @@ public abstract class FaseDeBuque {
 	}
 
 	public abstract void actualizar(int distancia, Viaje viaje);
+	
 	public void operar(List<Orden> ordenes) {}
 	
 	public Buque getBuque() {

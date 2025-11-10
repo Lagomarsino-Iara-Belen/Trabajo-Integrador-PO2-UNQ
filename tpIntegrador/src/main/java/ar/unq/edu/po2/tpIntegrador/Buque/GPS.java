@@ -20,6 +20,10 @@ public class GPS {
 		observadores.remove(observador);
 	}
 	
+	public List<Observador> getObservers() {
+		return this.observadores;
+	}
+	
 	public int getUbicacion() {
 		return ubicacion;
 	}

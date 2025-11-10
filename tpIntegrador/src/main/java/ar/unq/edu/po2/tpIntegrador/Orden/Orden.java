@@ -59,7 +59,7 @@ public abstract class Orden {
 	}
 	
 	public void sacarServicio(Servicio servicio) {
-		this.servicios.add(servicio);
+		this.servicios.remove(servicio);
 	}
 
 	public abstract String aceptarReporte(Reporte reporte);

@@ -10,11 +10,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.unq.edu.po2.tpIntegrador.Naviera.Viaje;
-import ar.unq.edu.po2.tpIntegrador.Terminal.CriterioFechaDeSalida;
+import ar.unq.edu.po2.tpIntegrador.Terminal.CriterioFechaDeLlegada;
 import ar.unq.edu.po2.tpIntegrador.Terminal.Terminal;
 
-class CriterioFechaSalidaTestCase {
-	private CriterioFechaDeSalida criterio;
+class CriterioFechaDeLlegadaTestCase {
+	private CriterioFechaDeLlegada criterio;
 	private Terminal terminal;
 	private Viaje viaje;
 	private LocalDate fecha;
@@ -24,18 +24,18 @@ class CriterioFechaSalidaTestCase {
 		viaje = mock(Viaje.class);
 		terminal = mock(Terminal.class);
 		fecha = LocalDate.of(2025, 11, 5);
-		criterio = new CriterioFechaDeSalida(fecha);	
+		criterio = new CriterioFechaDeLlegada(fecha);	
 	}
 
 	@Test
 	void testSeCumplenQue() {
-		when(viaje.getFechaDeInicio()).thenReturn(fecha);
+		when(viaje.fechaDeParada(terminal)).thenReturn(fecha);
 		assertTrue(criterio.seCumplenQue(viaje, terminal));
 	}
 	
 	@Test
 	void testNoSeCumplenQue() {
-		when(viaje.getFechaDeInicio()).thenReturn(fecha.plusDays(21));
+		when(viaje.fechaDeParada(terminal)).thenReturn(fecha.plusDays(21));
 		assertFalse(criterio.seCumplenQue(viaje, terminal));
 	}
 }

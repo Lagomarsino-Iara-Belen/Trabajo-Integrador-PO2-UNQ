@@ -20,6 +20,7 @@ import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
 import ar.unq.edu.po2.tpIntegrador.Orden.Turno;
 import ar.unq.edu.po2.tpIntegrador.Reporte.Reporte;
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 public class Terminal {
 
@@ -38,7 +39,7 @@ public class Terminal {
 	}
 	
 	private boolean chequearTurno(Turno turno) {
-		return turno.estáRetrasado();
+		return turno.estáRetrasado(LocalDateTime.now());
 	}
 	
 	private boolean chequearCamionYChofer(Camion camion, Chofer chofer) {

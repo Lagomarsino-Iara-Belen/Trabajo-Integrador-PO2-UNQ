@@ -168,7 +168,7 @@ public class TerminalTestCase {
     void testChequearEnvioTrueCuandoCamionYChoferCoincidenYTurnoEstaRetrasado() {
         Mockito.when(transportistaMock.chequearCamionYChofer(camionMock, choferMock)).thenReturn(true);
 
-        Mockito.when(turnoMock.estáRetrasado()).thenReturn(true);
+        Mockito.when(turnoMock.estáRetrasado(any())).thenReturn(true);
 
         boolean resultado = terminal.chequearEnvio(camionMock, choferMock, turnoMock);
 
@@ -179,7 +179,7 @@ public class TerminalTestCase {
     void testChequearEnvioFalseCuandoTurnoNoEstaRetrasado() {
         Mockito.when(transportistaMock.chequearCamionYChofer(camionMock, choferMock)).thenReturn(true);
 
-        Mockito.when(turnoMock.estáRetrasado()).thenReturn(false);
+        Mockito.when(turnoMock.estáRetrasado(LocalDateTime.now())).thenReturn(false);
 
         boolean resultado = terminal.chequearEnvio(camionMock, choferMock, turnoMock);
 
@@ -191,7 +191,7 @@ public class TerminalTestCase {
         
         Mockito.when(transportistaMock.chequearCamionYChofer(camionMock, choferMock)).thenReturn(false);
 
-        Mockito.when(turnoMock.estáRetrasado()).thenReturn(true);
+        Mockito.when(turnoMock.estáRetrasado(LocalDateTime.now())).thenReturn(true);
 
         boolean resultado = terminal.chequearEnvio(camionMock, choferMock, turnoMock);
 

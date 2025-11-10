@@ -25,7 +25,7 @@ public class Turno {
         return this.horario.plus(this.retraso);
     }
 
-    public boolean estáRetrasado() {
-        return this.getFechaFin().isBefore(LocalDateTime.now());
+    public boolean estáRetrasado(LocalDateTime fecha) {
+        return this.getFechaFin().isBefore(fecha);
     }
 }

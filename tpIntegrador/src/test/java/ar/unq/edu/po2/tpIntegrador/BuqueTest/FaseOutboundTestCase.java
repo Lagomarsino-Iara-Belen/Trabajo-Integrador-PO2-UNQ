@@ -1,12 +1,16 @@
 package ar.unq.edu.po2.tpIntegrador.BuqueTest;
 import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Buque.FaseOutbound;
 import ar.unq.edu.po2.tpIntegrador.Naviera.Viaje;
+import ar.unq.edu.po2.tpIntegrador.Orden.Orden;
 
 class FaseOutboundTestCase {
 
@@ -35,5 +39,17 @@ class FaseOutboundTestCase {
     	fase.actualizar(49, viaje);
 
         verify(buque).setFase(any());
+    }
+    
+    @Test
+    void testOperarse() {
+    	Orden orden1 = mock(Orden.class);
+        Orden orden2 = mock(Orden.class);
+        List<Orden> ordenes = Arrays.asList(orden1, orden2);
+        
+        fase.operar(ordenes);
+        
+        verifyNoInteractions(orden1);
+        verifyNoInteractions(orden2);
     }
 }

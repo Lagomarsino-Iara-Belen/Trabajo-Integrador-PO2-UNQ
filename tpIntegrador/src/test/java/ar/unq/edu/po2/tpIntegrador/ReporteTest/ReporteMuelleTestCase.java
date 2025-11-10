@@ -77,7 +77,7 @@ class ReporteMuelleTestCase {
         LocalDate fecha = LocalDate.of(2025, 10, 20);
         when(buqueMock.getNombre()).thenReturn("BuenBuque");
         when(buqueMock.getViaje()).thenReturn(viajeMock);
-        when(viajeMock.getParadaActual()).thenReturn(terminal); // puedes mockear el tipo real
+        when(viajeMock.getParadaActual()).thenReturn(terminal);
         when(viajeMock.fechaDeParada(any())).thenReturn(fecha);
 
       
@@ -94,8 +94,7 @@ class ReporteMuelleTestCase {
     void visitarOrdenDeImportacion_debeRetornarCadenaVacia() {
      
         OrdenDeImportacion ordImp = mock(OrdenDeImportacion.class);
-        when(ordImp.aceptarReporte(reporte)).thenCallRealMethod(); // para que use la implementación concreta
-
+        when(ordImp.aceptarReporte(reporte)).thenCallRealMethod(); 
        
         String resultado = ordImp.aceptarReporte(reporte);
 
@@ -107,8 +106,7 @@ class ReporteMuelleTestCase {
     void visitarOrdenDeExportacion_debeRetornarCadenaVacia() {
        
         OrdenDeExportacion ordExp = mock(OrdenDeExportacion.class);
-        when(ordExp.aceptarReporte(reporte)).thenCallRealMethod(); // para que use la implementación concreta
-
+        when(ordExp.aceptarReporte(reporte)).thenCallRealMethod(); 
       
         String resultado = ordExp.aceptarReporte(reporte);
 

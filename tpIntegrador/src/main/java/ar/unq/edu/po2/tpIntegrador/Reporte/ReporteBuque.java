@@ -22,7 +22,7 @@ public class ReporteBuque implements Reporte {
 				 							.collect(Collectors.joining());
 		
 		return "<report> \n <import> \n" + importaciones + "</import> \n" +
-						   "<export> \n" + exportaciones + "</import> \n </report>";
+						   "<export> \n" + exportaciones + "</export> \n </report>";
 	}
 
 	@Override

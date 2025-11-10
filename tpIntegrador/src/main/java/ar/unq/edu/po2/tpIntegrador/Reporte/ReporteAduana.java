@@ -31,7 +31,7 @@ public class ReporteAduana implements Reporte {
 	private String listaContainer(Buque buque) {
 		String lista = ""; //de esta forma inicializo el string (neutro).
 		for(Container cont : buque.getContainers()) {
-			lista = "<li> ID: " + cont.getId() + "tiene los productos: " 
+			lista += "<li> ID: " + cont.getId() + " tiene los productos: " 
 								+ cont.getContenido().getTipoProducto().stream().collect(Collectors.joining(", "))
 								+ "</li> \n";
 		}

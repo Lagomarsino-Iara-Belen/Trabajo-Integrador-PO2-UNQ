@@ -66,8 +66,8 @@ public class Viaje {
 		Terminal paradaAIterar = this.getParadaActual();
 		double result = 0;
 		while(terminal != paradaAIterar && circuito.haySiguienteParada(paradaAIterar)) {
-			result += circuito.tramoActualDe(terminal).getPrecio();
 			paradaAIterar = circuito.proximaParadaDe(paradaAIterar);
+			result += circuito.tramoActualDe(paradaAIterar).getPrecio();
 		}
 		return result;
 	}

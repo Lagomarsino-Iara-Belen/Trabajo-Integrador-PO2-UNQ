@@ -173,4 +173,48 @@ class ViajeTestCase {
 		
 		assertFalse(viaje.pasaPor(terminal2));
 	}
+	
+	@Test
+	void testPrecioDelViajeDe() {
+	    terminal2 = mock(Terminal.class);
+	    Terminal terminal3 = mock(Terminal.class);
+
+	    // Tramos con sus precios
+	    Tramo tramo1 = mock(Tramo.class);
+	    when(tramo1.getPrecio()).thenReturn(100.0);
+
+	    Tramo tramo2 = mock(Tramo.class);
+	    when(tramo2.getPrecio()).thenReturn(150.0);
+
+	    // El viaje empieza en terminal1
+	    when(circuito.haySiguienteParada(terminal1)).thenReturn(true);
+	    when(circuito.proximaParadaDe(terminal1)).thenReturn(terminal2);
+
+	    when(circuito.haySiguienteParada(terminal2)).thenReturn(true);
+	    when(circuito.proximaParadaDe(terminal2)).thenReturn(terminal3);
+
+	    // tramoActualDe siempre se consulta con el **destino final**
+	    when(circuito.tramoActualDe(terminal2)).thenReturn(tramo1);
+	    when(circuito.tramoActualDe(terminal3)).thenReturn(tramo2);
+
+	    double precio = viaje.precioDelViajeDe(terminal3);
+
+	    assertEquals(250.0, precio);  // 100 + 150
+	}
+	
+	@Test
+	void testCantidadDeParadasDe() {
+	    terminal2 = mock(Terminal.class);
+	    Terminal terminal3 = mock(Terminal.class);
+
+	    when(circuito.haySiguienteParada(terminal1)).thenReturn(true);
+	    when(circuito.proximaParadaDe(terminal1)).thenReturn(terminal2);
+
+	    when(circuito.haySiguienteParada(terminal2)).thenReturn(true);
+	    when(circuito.proximaParadaDe(terminal2)).thenReturn(terminal3);
+
+	    int cant = viaje.cantidadDeParadasDe(terminal3);
+
+	    assertEquals(2, cant); // terminal1 → terminal2 → terminal3
+	}
 }

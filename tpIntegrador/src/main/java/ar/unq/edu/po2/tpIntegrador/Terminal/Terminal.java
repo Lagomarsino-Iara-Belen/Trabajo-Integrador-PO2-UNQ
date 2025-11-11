@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Buque.FaseDeBuque;
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
-import ar.unq.edu.po2.tpIntegrador.Clientes.Factura;
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Camion;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Chofer;
@@ -107,16 +106,12 @@ public class Terminal {
 	public void enviarFacturacion(Buque buque, List<Container> containers) {
 		this.ordenesDelBuque(buque)
 		.forEach(orden -> orden.getContainer().getImportadores().stream()
-				.forEach(cliente -> this.hacerFacturaPara(cliente, orden)));
+				.forEach(cliente -> orden.hacerFacturaPara(cliente, this)));
 	}
 	
 	public void avisarAClientes(Buque buque) {
 		this.ordenesDelBuque(buque).forEach(orden -> orden.avisarCliente(this));
 		
-	}
-	
-	public void hacerFacturaPara(Cliente cliente, Orden orden) {
-		cliente.guardarFactura(new Factura(orden));
 	}
 	
 	/**

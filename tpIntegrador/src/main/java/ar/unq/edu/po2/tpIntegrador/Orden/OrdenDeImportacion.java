@@ -4,17 +4,18 @@ import java.time.LocalDateTime;
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Buque.Visitable;
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
+import ar.unq.edu.po2.tpIntegrador.Clientes.Factura;
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
 import ar.unq.edu.po2.tpIntegrador.Reporte.Reporte;
 import ar.unq.edu.po2.tpIntegrador.Terminal.Terminal;
 
 public class OrdenDeImportacion extends Orden implements Visitable {
 	
-	private Cliente shipper;
+	private Cliente consignee;
 	
-	public OrdenDeImportacion(LocalDateTime fechaSalida, LocalDateTime fechaLlegada, Container container, Buque buque, Turno turno, Cliente shipper) {
+	public OrdenDeImportacion(LocalDateTime fechaSalida, LocalDateTime fechaLlegada, Container container, Buque buque, Turno turno, Cliente consignee) {
 		super(fechaSalida, fechaLlegada, container, buque, turno);
-		this.shipper = shipper;
+		this.consignee = consignee;
 	}
 
 	@Override
@@ -30,11 +31,20 @@ public class OrdenDeImportacion extends Orden implements Visitable {
 
 	@Override
 	public Cliente getCliente() {
-		return this.shipper;
+		return this.consignee;
 	}
 
 	@Override
 	public void avisarCliente(Terminal terminal) {
-		this.shipper.enviarImportacionA(terminal, this.getTurno());
+		this.consignee.enviarImportacionA(terminal, this.getTurno());
+	}
+
+	@Override
+	public void hacerFacturaPara(Cliente cliente, Terminal terminal) {
+		cliente.guardarFactura(new Factura(this, this.precioDelViaje(terminal)));
+	}
+
+	private double precioDelViaje(Terminal terminal) {
+		return getBuque().getViaje().getCircuito().precioDelViajeHasta(terminal);
 	}
 }

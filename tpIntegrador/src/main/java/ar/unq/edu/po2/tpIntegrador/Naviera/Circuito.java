@@ -1,13 +1,15 @@
 package ar.unq.edu.po2.tpIntegrador.Naviera;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.unq.edu.po2.tpIntegrador.Terminal.Terminal;
 
 public class Circuito {
-	private ArrayList<Tramo> tramos;
+	private List<Tramo> tramos;
 	
-	public Circuito(ArrayList<Tramo> listaTramos) {
+	public Circuito(List<Tramo> listaTramos) {
 		this.tramos = listaTramos;
 	}
 	
@@ -35,8 +37,37 @@ public class Circuito {
 		return this.tramos.stream().filter(tramo -> tramo.getPuertoOrigen().equals(terminal))
 				.map(Tramo :: getPuertoDestino).findFirst().orElse(null);
 	}
+	
+	public Tramo tramoActualDe(Terminal terminal) {
+		return this.tramos.stream().filter(tramo -> tramo.getPuertoOrigen().equals(terminal)).findFirst().orElse(null);
+	}
 
-	public ArrayList<Tramo> getTodosLosTramos() {
+	public List<Tramo> getTodosLosTramos() {
 		return tramos;
+	}
+
+	public double precioDelViajeHasta(Terminal terminal) {
+		Terminal paradaAIterar = getPuertoInicio();
+		double result = 0;
+		while(terminal != paradaAIterar && haySiguienteParada(paradaAIterar)) {
+			result += tramoActualDe(terminal).getPrecio();
+			paradaAIterar = proximaParadaDe(paradaAIterar);
+		}
+		return result;
+	}
+	
+	public List<LocalDate> cronogramaSaliendo(LocalDate fecha) {
+	    List<Tramo> tramos = getTodosLosTramos();
+
+	    ArrayList<LocalDate> cronograma = tramos.stream().collect(
+	            () -> new ArrayList<>(List.of(fecha)),
+	            (lista, tramo) -> {
+	                LocalDate ultima = lista.get(lista.size() - 1);
+	                lista.add(ultima.plusWeeks(tramo.getSemanas()));
+	            },
+	            (a, b) -> a.addAll(b)
+	        );
+
+	    return cronograma;
 	}
 }

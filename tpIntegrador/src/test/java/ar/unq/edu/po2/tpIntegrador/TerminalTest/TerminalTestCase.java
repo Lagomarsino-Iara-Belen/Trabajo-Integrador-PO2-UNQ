@@ -24,7 +24,6 @@ import org.mockito.Mockito;
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Buque.FaseDeBuque;
 import ar.unq.edu.po2.tpIntegrador.Clientes.Cliente;
-import ar.unq.edu.po2.tpIntegrador.Clientes.Factura;
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Camion;
 import ar.unq.edu.po2.tpIntegrador.EmpresaTransportista.Chofer;
@@ -138,7 +137,7 @@ public class TerminalTestCase {
     void testEnviarFacturacion() {
         terminal.enviarFacturacion(buque, List.of(container));
 
-        verify(cliente).guardarFactura(any(Factura.class));
+        verify(orden).hacerFacturaPara(cliente, terminal);
     }
 
     @Test
@@ -146,13 +145,6 @@ public class TerminalTestCase {
         terminal.avisarAClientes(buque);
 
         verify(orden).avisarCliente(terminal);
-    }
-
-    @Test
-    void testHacerFacturaPara() {
-        terminal.hacerFacturaPara(cliente, orden);
-
-        verify(cliente).guardarFactura(any(Factura.class));
     }
 
     @Test

@@ -1,7 +1,6 @@
 package ar.unq.edu.po2.tpIntegrador.Naviera;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import ar.unq.edu.po2.tpIntegrador.Terminal.Terminal;
@@ -30,19 +29,8 @@ public class Viaje {
 		return this.circuito;
 	}
 	
-	public ArrayList<LocalDate> cronograma() {
-	    ArrayList<Tramo> tramos = circuito.getTodosLosTramos();
-
-	    ArrayList<LocalDate> cronograma = tramos.stream().collect(
-	            () -> new ArrayList<>(List.of(fechaDeInicio)),
-	            (lista, tramo) -> {
-	                LocalDate ultima = lista.get(lista.size() - 1);
-	                lista.add(ultima.plusWeeks(tramo.getSemanas()));
-	            },
-	            (a, b) -> a.addAll(b)
-	        );
-
-	    return cronograma;
+	public List<LocalDate> cronograma() {
+	    return circuito.cronogramaSaliendo(this.fechaDeInicio);
 	}
 
 	public void proximaParada(Terminal terminal) {  
@@ -57,7 +45,7 @@ public class Viaje {
 	 * @return La fecha correspondiente al cronograma de la terminal dada por parametro
 	 */
 	public LocalDate fechaDeParada(Terminal paradaAver) {
-		Terminal paradaAIterar = circuito.getPuertoInicio();
+		Terminal paradaAIterar = this.getParadaActual();
 		int nro = 0;
 		while(paradaAver != paradaAIterar && circuito.haySiguienteParada(paradaAIterar)) {
 			nro = nro + 1;
@@ -67,10 +55,30 @@ public class Viaje {
 	}
 
 	public boolean pasaPor(Terminal parada) {
-		Terminal paradaAIterar = circuito.getPuertoInicio();
+		Terminal paradaAIterar = this.getParadaActual();
 		while(parada != paradaAIterar && circuito.haySiguienteParada(paradaAIterar)) {
 			paradaAIterar = circuito.proximaParadaDe(paradaAIterar);
 		}
 		return parada == paradaAIterar;
+	}
+	
+	public double precioDelViajeDe(Terminal terminal) {
+		Terminal paradaAIterar = this.getParadaActual();
+		double result = 0;
+		while(terminal != paradaAIterar && circuito.haySiguienteParada(paradaAIterar)) {
+			result += circuito.tramoActualDe(terminal).getPrecio();
+			paradaAIterar = circuito.proximaParadaDe(paradaAIterar);
+		}
+		return result;
+	}
+	
+	public int cantidadDeParadasDe(Terminal terminal) {
+		Terminal paradaAIterar = this.getParadaActual();
+		int result = 0;
+		while(terminal != paradaAIterar && circuito.haySiguienteParada(paradaAIterar)) {
+			result += 1;
+			paradaAIterar = circuito.proximaParadaDe(paradaAIterar);
+		}
+		return result;
 	}
 }

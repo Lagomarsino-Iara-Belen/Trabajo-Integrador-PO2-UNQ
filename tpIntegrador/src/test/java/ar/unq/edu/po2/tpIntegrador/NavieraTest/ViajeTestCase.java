@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,14 +37,11 @@ class ViajeTestCase {
 
 	@Test
 	void testCronograma() {
-		 ArrayList<LocalDate> cronog = new ArrayList<>();
-		 cronog.add(fecha); 
-		 cronog.add(fecha.plusWeeks(2));
-		 
-		 tramo = mock(Tramo.class);
-		when(tramo.getSemanas()).thenReturn(2);
-		when(circuito.getTodosLosTramos())
-			.thenReturn(new ArrayList<>(List.of(tramo)));
+		ArrayList<LocalDate> cronog = new ArrayList<>();
+		cronog.add(fecha); 
+		cronog.add(fecha.plusWeeks(2));
+		
+		when(circuito.cronogramaSaliendo(any())).thenReturn(cronog);
 		
 		assertEquals(cronog, viaje.cronograma());
 	}
@@ -95,32 +93,23 @@ class ViajeTestCase {
 	
 	@Test
 	void testFechaDeParada() {
-		tramo = mock(Tramo.class);
-		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
-		
-		when(circuito.getTodosLosTramos())
-				.thenReturn(new ArrayList<>(List.of(tramo)));
-		 
+		when(circuito.cronogramaSaliendo(any())).thenReturn(Arrays.asList(fecha));
 		
 		assertEquals(fecha, viaje.fechaDeParada(terminal1));
 	}
 	
 	@Test
 	void testFechaDeParada2() {
+		ArrayList<LocalDate> cronog = new ArrayList<>();
+		cronog.add(fecha); 
+		cronog.add(fecha.plusWeeks(2));
 		terminal2 = mock(Terminal.class);
-		
-		tramo = mock(Tramo.class);
-		when(tramo.getPuertoOrigen()).thenReturn(terminal1);
-		when(tramo.getPuertoDestino()).thenReturn(terminal2);
-		when(tramo.getSemanas()).thenReturn(2);
-		
-		when(circuito.getPuertoInicio()).thenReturn(terminal1);
-		when(circuito.getTodosLosTramos())
-				.thenReturn(new ArrayList<>(List.of(tramo)));
 		when(circuito.proximaParadaDe(terminal1))
 			.thenReturn(terminal2);
 		when(circuito.haySiguienteParada(terminal1))
 			.thenReturn(true);
+		
+		when(circuito.cronogramaSaliendo(any())).thenReturn(cronog);
 		
 		assertEquals(fecha.plusWeeks(2), viaje.fechaDeParada(terminal2));
 	}
@@ -128,10 +117,7 @@ class ViajeTestCase {
 	@Test
 	void testFechaDeParada3() {
 		terminal2 = mock(Terminal.class);
-		
-		when(circuito.getTodosLosTramos())
-				.thenReturn(new ArrayList<>());
-
+		when(circuito.cronogramaSaliendo(any())).thenReturn(Arrays.asList(fecha));
 		when(circuito.haySiguienteParada(terminal1))
 			.thenReturn(false);
 		

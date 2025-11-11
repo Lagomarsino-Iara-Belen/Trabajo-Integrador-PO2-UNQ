@@ -71,4 +71,6 @@ public abstract class Orden {
 	public void setTurno(Turno turno) {
 		this.turno = turno;
 	}
+
+	public abstract void hacerFacturaPara(Cliente cliente, Terminal terminal);
 }

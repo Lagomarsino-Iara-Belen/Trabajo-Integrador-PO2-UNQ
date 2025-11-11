@@ -28,7 +28,7 @@ public class FacturaTestCase {
         servicio2 = mock(Servicio.class);
         container = mock(Container.class);
 
-        factura = new Factura(orden);
+        factura = new Factura(orden,0d);
 
         when(orden.getContainer()).thenReturn(container);
 

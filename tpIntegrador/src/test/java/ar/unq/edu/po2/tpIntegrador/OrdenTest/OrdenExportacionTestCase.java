@@ -1,6 +1,7 @@
 package ar.unq.edu.po2.tpIntegrador.OrdenTest;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
@@ -125,4 +126,13 @@ class OrdenExportacionTestCase {
 		assertNotEquals(turno, orden.getTurno());
 		assertEquals(turno2, orden.getTurno());
 	}
+	
+	@Test
+    void testHacerFacturaPara() {
+    	Terminal terminal = mock(Terminal.class);
+		
+    	orden.hacerFacturaPara(cliente, terminal);
+    	
+    	verify(cliente).guardarFactura(any());
+    }
 }

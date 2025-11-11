@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import ar.unq.edu.po2.tpIntegrador.Buque.Buque;
 import ar.unq.edu.po2.tpIntegrador.Containers.Container;
+import ar.unq.edu.po2.tpIntegrador.Naviera.Circuito;
+import ar.unq.edu.po2.tpIntegrador.Naviera.Viaje;
 import ar.unq.edu.po2.tpIntegrador.Orden.OrdenDeImportacion;
 import ar.unq.edu.po2.tpIntegrador.Orden.Turno;
 import ar.unq.edu.po2.tpIntegrador.Reporte.ReporteAduana;
@@ -104,6 +106,18 @@ class OrdenImportacionTestCase {
 
         assertEquals("", resultado);
         verify(reporteMuelle).visitar(orden);
+    }
+    
+    @Test
+    void testHacerFacturaPara() {
+    	Viaje viaje = mock(Viaje.class);
+    	Circuito circuito = mock(Circuito.class);
+		when(buque.getViaje()).thenReturn(viaje);
+		when(viaje.getCircuito()).thenReturn(circuito);
+		
+    	orden.hacerFacturaPara(cliente, terminal);
+    	
+    	verify(cliente).guardarFactura(any());
     }
 }
 

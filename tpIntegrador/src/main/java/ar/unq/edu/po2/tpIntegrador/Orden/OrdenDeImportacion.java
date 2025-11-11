@@ -45,6 +45,6 @@ public class OrdenDeImportacion extends Orden implements Visitable {
 	}
 
 	private double precioDelViaje(Terminal terminal) {
-		return getBuque().getViaje().getCircuito().precioDelViajeHasta(terminal);
+		return getBuque().getViaje().getCircuito().precioHasta(terminal);
 	}
 }

@@ -46,11 +46,11 @@ public class Circuito {
 		return tramos;
 	}
 
-	public double precioDelViajeHasta(Terminal terminal) {
+	public double precioHasta(Terminal terminal) {
 		Terminal paradaAIterar = getPuertoInicio();
 		double result = 0;
 		while(terminal != paradaAIterar && haySiguienteParada(paradaAIterar)) {
-			result += tramoActualDe(terminal).getPrecio();
+			result += tramoActualDe(paradaAIterar).getPrecio();
 			paradaAIterar = proximaParadaDe(paradaAIterar);
 		}
 		return result;

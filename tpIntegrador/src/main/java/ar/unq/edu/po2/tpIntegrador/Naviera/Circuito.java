@@ -59,7 +59,7 @@ public class Circuito {
 	public List<LocalDate> cronogramaSaliendo(LocalDate fecha) {
 	    List<Tramo> tramos = getTodosLosTramos();
 
-	    ArrayList<LocalDate> cronograma = tramos.stream().collect(
+	    ArrayList<LocalDate> cronograma = tramos.parallelStream().collect(
 	            () -> new ArrayList<>(List.of(fecha)),
 	            (lista, tramo) -> {
 	                LocalDate ultima = lista.get(lista.size() - 1);
